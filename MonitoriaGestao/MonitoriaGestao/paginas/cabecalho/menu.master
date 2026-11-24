@@ -1,0 +1,42 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="menu.master.cs" Inherits="masterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Fatec Cruzeiro - Gestão de Monitoria</title>
+    <link rel="stylesheet" type="text/css" href="~/css/index.css" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <header class="navbar">
+            <div class="navEsquerda">
+                <asp:Image ID="imgUsuario" runat="server" ImageUrl="~/Imagens/user_img.png" AlternateText="Usuário" CssClass="iconeUsuario" />
+                <asp:Label ID="lblUsuarioLogado" runat="server" CssClass="nomeUsuario" Text="Visitante"></asp:Label>
+            </div>
+
+            <nav class="navLinks">
+                <asp:HyperLink ID="lnkHome" runat="server" NavigateUrl="~/paginas/home.aspx">Mural / Início</asp:HyperLink>
+                <asp:HyperLink ID="lnkAgendar" runat="server" NavigateUrl="~/paginas/agendar.aspx" Visible="false">Agendar</asp:HyperLink>
+                <asp:HyperLink ID="lnkMeusAgendamentos" runat="server" NavigateUrl="~/paginas/meusAgendamentos.aspx" Visible="false">Meus agendamentos</asp:HyperLink>
+                <asp:HyperLink ID="lnkMonitor" runat="server" NavigateUrl="~/paginas/painelMonitor.aspx" Visible="false">Minhas monitorias</asp:HyperLink>
+                <asp:HyperLink ID="lnkCoordenacao" runat="server" NavigateUrl="~/paginas/painelCoordenador.aspx" Visible="false">Coordenação</asp:HyperLink>
+                <asp:HyperLink ID="lnkMinhaConta" runat="server" NavigateUrl="~/paginas/minhaConta.aspx" Visible="false">Minha conta</asp:HyperLink>
+                <asp:HyperLink ID="lnkLogin" runat="server" NavigateUrl="~/paginas/login.aspx">Entrar</asp:HyperLink>
+                <asp:LinkButton ID="btnSair" runat="server" CssClass="btnSair" Visible="false" OnClick="btnSair_Click" CausesValidation="false">Sair</asp:LinkButton>
+            </nav>
+        </header>
+
+        <main class="containerPagina">
+            <div class="topoImg">
+                <asp:Image ID="imgLogoFatec" runat="server" ImageUrl="~/Imagens/fatec_logo.png" AlternateText="Fatec Cruzeiro" CssClass="imgLogo" />
+            </div>
+
+            <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
+        </main>
+    </form>
+</body>
+</html>

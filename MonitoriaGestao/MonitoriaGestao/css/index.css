@@ -1,0 +1,541 @@
+﻿/*  Cores:
+    Azul escuro: #13293D
+    Azul: #006494
+    Azul/cinza claro: #E8F1F2
+*/
+
+/*---------------------------------------------*/
+.azul {
+    color: #006494;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: #E8F1F2;
+    color: #000;
+}
+
+.tituloPagina {
+    text-align: center;
+    font-size: 26px;
+    color: #000;
+    margin-bottom: 24px;
+}
+
+.containerPagina {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 24px 20px 40px 20px;
+}
+
+.painelEdicao {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 2px solid #E8F1F2;
+}
+
+.tituloSecao {
+    font-size: 19px;
+    color: #13293D;
+    margin-bottom: 14px;
+}
+
+.subtituloSecao {
+    font-size: 18px;
+    color: #13293D;
+    margin-bottom: 16px;
+}
+
+.msgFeedback {
+    display: block;
+    text-align: center;
+    margin-top: 14px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #006494;
+}
+
+.msgErro {
+    display: block;
+    text-align: center;
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #006494;
+}
+
+/*---------------------------------------------*/
+.nomeUsuario {
+    color: #fff;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.topoImg {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-bottom: 16px;
+}
+
+.iconeUsuario {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.imgLogo {
+    height: 150px;
+    width: auto;
+    display: block;
+}
+/*---------------------------------------------*/
+.navbar {
+    background-color: #13293D;
+    color: #fff;
+    padding: 14px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.navEsquerda {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navLinks {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+    .navLinks a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 14px;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+        .navLinks a:hover {
+            text-decoration: underline;
+        }
+
+.linkSecundario {
+    background-color: #006494;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+/*---------------------------------------------*/
+.areaBotao {
+    margin-top: 28px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.btnPrimario {
+    background-color: #13293D;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 36px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+    .btnPrimario:hover {
+        background-color: #006494;
+    }
+
+.btnSair {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+    .btnSair:hover {
+        text-decoration: underline;
+    }
+
+.btnEditar {
+    background-color: #006494;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    margin-right: 6px;
+}
+
+.btnExcluir {
+    background-color: #13293D;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 12px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.btnStatusAndamento {
+    background-color: #006494;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 10px;
+    font-size: 13px;
+    cursor: pointer;
+    margin-right: 6px;
+}
+
+.btnStatusFinalizada {
+    background-color: #13293D;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 10px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.btnAba {
+    background-color: #E8F1F2;
+    color: #13293D;
+    border: 2px solid #006494;
+    border-radius: 6px;
+    padding: 9px 18px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btnAbaAtiva {
+    background-color: #006494;
+    color: #FFFFFF;
+    border: 2px solid #006494;
+    border-radius: 6px;
+    padding: 9px 18px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/*---------------------------------------------*/
+.cardBox {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 28px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.agendarCard {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+/*---------------------------------------------*/
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 28px;
+}
+
+.campoGrupo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+    .campoGrupo label {
+        font-size: 14px;
+        font-weight: bold;
+        color: #000;
+    }
+
+.controleForm {
+    background-color: #006494;
+    color: #fff;
+    border: 1px solid #006494;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 14px;
+}
+
+    .controleForm option {
+        background-color: #fff;
+        color: #000;
+    }
+/*---------------------------------------------*/
+.confirmacaoCard {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.msgConfirmacao {
+    font-size: 20px;
+    font-weight: bold;
+    color: #13293D;
+    margin: 20px 0 28px 0;
+    line-height: 1.4;
+}
+
+.acoesConfirmacao {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+/*---------------------------------------------*/
+.loginCard {
+    max-width: 460px;
+    margin: 0 auto;
+}
+
+.formLogin {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.campoLogin {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+    .campoLogin label {
+        font-size: 14px;
+        font-weight: bold;
+        color: #000000;
+    }
+
+.inputLogin {
+    background-color: #FFFFFF;
+    color: #000000;
+    border: 2px solid #006494;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 14px;
+}
+
+/*---------------------------------------------*/
+.contaCard {
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.inputClaro {
+    background-color: #FFFFFF;
+    color: #000000;
+    border: 2px solid #006494;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 14px;
+}
+
+.inputBloqueado {
+    background-color: #E8F1F2;
+    color: #000000;
+    border: 1px solid #006494;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 14px;
+}
+
+.divisorConta {
+    margin: 24px 0 18px 0;
+    border: 0;
+    border-top: 2px solid #E8F1F2;
+}
+
+.subtituloConta {
+    font-size: 18px;
+    color: #13293D;
+    margin-bottom: 14px;
+}
+/*---------------------------------------------*/
+.abasCoord {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.diasLista label {
+    margin-left: 6px;
+    margin-right: 14px;
+    font-size: 14px;
+    color: #13293D;
+}
+
+.horariosDiaBox {
+    grid-column: 1 / -1;
+    background-color: #F4F8FA;
+    border: 1px solid #C8DCE6;
+    border-radius: 6px;
+    padding: 14px;
+    margin-top: 6px;
+}
+
+.horariosDiaTitulo {
+    font-size: 14px;
+    font-weight: bold;
+    color: #13293D;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.linhaHorarioDia {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.rotuloDiaHorario {
+    min-width: 130px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #13293D;
+}
+
+.horaCurta {
+    min-width: 120px;
+}
+
+/*---------------------------------------------*/
+.tabelaCoord {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #FFFFFF;
+    margin-top: 14px;
+}
+
+    .tabelaCoord th {
+        background-color: #13293D;
+        color: #FFFFFF;
+        padding: 10px 12px;
+        text-align: left;
+        font-size: 14px;
+    }
+
+    .tabelaCoord td {
+        padding: 10px 12px;
+        border-bottom: 1px solid #E8F1F2;
+        font-size: 14px;
+        color: #000000;
+    }
+
+
+/*---------------------------------------------*/
+.tabelaMonitor {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #FFFFFF;
+    margin-top: 12px;
+}
+
+    .tabelaMonitor th {
+        background-color: #13293D;
+        color: #FFFFFF;
+        padding: 12px;
+        text-align: left;
+        font-size: 14px;
+    }
+
+    .tabelaMonitor td {
+        padding: 11px 12px;
+        border-bottom: 1px solid #E8F1F2;
+        font-size: 14px;
+        color: #000000;
+    }
+
+/*---------------------------------------------*/
+.tabelaLista {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #FFFFFF;
+    margin-top: 12px;
+}
+
+    .tabelaLista th {
+        background-color: #13293D;
+        color: #FFFFFF;
+        padding: 12px;
+        text-align: left;
+        font-size: 14px;
+    }
+
+    .tabelaLista td {
+        padding: 11px 12px;
+        border-bottom: 1px solid #E8F1F2;
+        font-size: 14px;
+        color: #000000;
+    }
+
+/*---------------------------------------------*/
+.topoMural {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.tabelaMural {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #FFFFFF;
+}
+
+    .tabelaMural th {
+        background-color: #13293D;
+        color: #FFFFFF;
+        padding: 12px;
+        text-align: left;
+        font-size: 14px;
+    }
+
+    .tabelaMural td {
+        padding: 11px 12px;
+        border-bottom: 1px solid #E8F1F2;
+        font-size: 14px;
+        color: #000000;
+    }
+
+    .tabelaMural tr:hover td {
+        background-color: #E8F1F2;
+    }
+
+.vazioMural {
+    text-align: center;
+    padding: 20px;
+    color: #000000;
+    font-size: 14px;
+}

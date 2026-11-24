@@ -1,0 +1,192 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="masterPage.master.cs" Inherits="masterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #E8F1F2;
+            color: #000000;
+        }
+
+        .navbar {
+            background-color: #13293D;
+            color: #FFFFFF;
+            padding: 14px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-esquerda {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nome-usuario {
+            color: #FFFFFF;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+            .nav-links a,
+            .btn-sair {
+                color: #FFFFFF;
+                text-decoration: none;
+                font-size: 14px;
+                background: none;
+                border: none;
+                cursor: pointer;
+            }
+
+                .nav-links a:hover,
+                .btn-sair:hover {
+                    text-decoration: underline;
+                }
+
+        .container-pagina {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 20px 40px 20px;
+        }
+
+        .topo-fatec {
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
+            margin-bottom: 16px;
+        }
+
+        .card-box {
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            padding: 28px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .titulo-pagina {
+            text-align: center;
+            font-size: 26px;
+            color: #000000;
+            margin-bottom: 24px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px 28px;
+        }
+
+        .campo-grupo {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+            .campo-grupo label {
+                font-size: 14px;
+                font-weight: bold;
+                color: #000000;
+            }
+
+        .controle-form {
+            background-color: #006494;
+            color: #FFFFFF;
+            border: 1px solid #006494;
+            border-radius: 6px;
+            padding: 10px 12px;
+            font-size: 14px;
+        }
+
+            .controle-form option {
+                background-color: #FFFFFF;
+                color: #000000;
+            }
+
+        .area-botao {
+            margin-top: 28px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .btn-primario {
+            background-color: #13293D;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 36px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+            .btn-primario:hover {
+                background-color: #006494;
+            }
+
+        .icone-usuario-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .img-logo-fatec {
+            height: 150px;
+            width: auto;
+            display: block;
+       
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <header class="navbar">
+            <div class="nav-esquerda">
+                <asp:Image ID="imgUsuario" runat="server" ImageUrl="Imagens/user_img.png" AlternateText="Usuário" CssClass="icone-usuario-img" />
+                <asp:Label ID="lblUsuarioLogado" runat="server" CssClass="nome-usuario" Text="Visitante"></asp:Label>
+            </div>
+
+            <nav class="nav-links">
+                <asp:HyperLink ID="lnkHome" runat="server" NavigateUrl="home.aspx">Mural / Início</asp:HyperLink>
+                <asp:HyperLink ID="lnkAgendar" runat="server" NavigateUrl="agendar.aspx" Visible="false">Agendar</asp:HyperLink>
+                <asp:HyperLink ID="lnkMeusAgendamentos" runat="server" NavigateUrl="meusAgendamentos.aspx" Visible="false">Meus agendamentos</asp:HyperLink>
+                <asp:HyperLink ID="lnkMonitor" runat="server" NavigateUrl="painelMonitor.aspx" Visible="false">Minhas monitorias</asp:HyperLink>
+                <asp:HyperLink ID="lnkCoordenacao" runat="server" NavigateUrl="painelCoordenador.aspx" Visible="false">Coordenação</asp:HyperLink>
+                <asp:HyperLink ID="lnkMinhaConta" runat="server" NavigateUrl="minhaConta.aspx" Visible="false">Minha conta</asp:HyperLink>
+                <asp:HyperLink ID="lnkLogin" runat="server" NavigateUrl="login.aspx">Entrar</asp:HyperLink>
+                <asp:LinkButton ID="btnSair" runat="server" CssClass="btn-sair" Visible="false" OnClick="btnSair_Click" CausesValidation="false">Sair</asp:LinkButton>
+            </nav>
+        </header>
+
+        <main class="container-pagina">
+            <div class="topo-fatec">
+                <asp:Image ID="imgLogoFatec" runat="server" ImageUrl="Imagens/fatec_logo.png" AlternateText="Fatec Cruzeiro" CssClass="img-logo-fatec" />
+            </div>
+
+            <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
+        </main>
+    </form>
+</body>
+</html>

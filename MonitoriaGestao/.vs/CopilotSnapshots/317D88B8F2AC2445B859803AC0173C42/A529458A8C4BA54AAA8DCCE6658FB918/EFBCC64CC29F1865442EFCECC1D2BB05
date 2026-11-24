@@ -1,0 +1,299 @@
+﻿using System;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Web.UI.WebControls;
+
+public partial class painelCoordenador : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Session["PerfilUsuario"] == null || Session["PerfilUsuario"].ToString() != "Coordenador")
+        {
+            Response.Redirect("login.aspx");
+            return;
+        }
+
+        if (!IsPostBack)
+        {
+            CarregarDisciplinas();
+            CarregarMonitores();
+            CarregarAlunos();
+            CarregarTodosAgendamentos();
+        }
+    }
+
+    private void SelecionarAba(string aba)
+    {
+        pnlMonitores.Visible = (aba == "Monitores");
+        pnlAlunos.Visible = (aba == "Alunos");
+        pnlAgendamentos.Visible = (aba == "Agendamentos");
+
+        btnAbaMonitores.CssClass = (aba == "Monitores") ? "btn-aba-ativa" : "btn-aba";
+        btnAbaAlunos.CssClass = (aba == "Alunos") ? "btn-aba-ativa" : "btn-aba";
+        btnAbaAgendamentos.CssClass = (aba == "Agendamentos") ? "btn-aba-ativa" : "btn-aba";
+
+        lblMensagem.Visible = false;
+    }
+
+    protected void btnAbaMonitores_Click(object sender, EventArgs e)
+    {
+        SelecionAba("Monitores");
+        CarregarMonitores();
+    }
+
+    protected void btnAbaAlunos_Click(object sender, EventArgs e)
+    {
+        SelecionAba("Alunos");
+        CarregarAlunos();
+    }
+
+    protected void btnAbaAgendamentos_Click(object sender, EventArgs e)
+    {
+        SelecionAba("Agendamentos");
+        CarregarTodosAgendamentos();
+    }
+
+    private void CarregarDisciplinas()
+    {
+        string strConexao = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        SqlConnection conn = new SqlConnection(strConexao);
+        SqlCommand cmd = new SqlCommand("SELECT id_disciplina, nome_disciplina FROM tb_disciplinas ORDER BY nome_disciplina", conn);
+
+        conn.Open();
+        SqlDataReader dr = cmd.ExecuteReader();
+        ddlDisciplinaMonitor.DataSource = dr;
+        ddlDisciplinaMonitor.DataTextField = "nome_disciplina";
+        ddlDisciplinaMonitor.DataValueField = "id_disciplina";
+        ddlDisciplinaMonitor.DataBind();
+        dr.Close();
+        conn.Close();
+
+        ddlDisciplinaMonitor.Items.Insert(0, new ListItem("Selecione...", "0"));
+    }
+
+    private void CarregarAlunos()
+    {
+        string strConexao = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        SqlConnection conn = new SqlConnection(strConexao);
+        SqlCommand cmd = new SqlCommand("SELECT ra, nome, email FROM tb_alunos ORDER BY nome", conn);
+
+        conn.Open();
+        SqlDataAdapter da = new SqlDataAdapter(cmd);
+        DataTable dt = new DataTable();
+        da.Fill(dt);
+        conn.Close();
+
+        gvAlunos.DataSource = dt;
+        gvAlunos.DataBind();
+    }
+
+    protected void btnCadastrarAluno_Click(object sender, EventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(txtRaAluno.Text) ||
+            string.IsNullOrWhiteSpace(txtNomeAluno.Text) ||
+            string.IsNullOrWhiteSpace(txtEmailAluno.Text) ||
+            string.IsNullOrWhiteSpace(txtSenhaAluno.Text))
+        {
+            SelecionAba("Alunos");
+            MostrarMensagem("Preencha RA, nome, e-mail e senha do aluno.");
+            return;
+        }
+
+        string strConexao = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        SqlConnection conn = new SqlConnection(strConexao);
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = conn;
+        cmd.CommandText = "INSERT INTO tb_alunos (ra, nome, email, senha) VALUES (@ra, @nome, @email, @senha)";
+        cmd.Parameters.AddWithValue("@ra", txtRaAluno.Text.Trim());
+        cmd.Parameters.AddWithValue("@nome", txtNomeAluno.Text.Trim());
+        cmd.Parameters.AddWithValue("@email", txtEmailAluno.Text.Trim());
+        cmd.Parameters.AddWithValue("@senha", txtSenhaAluno.Text.Trim());
+
+        conn.Open();
+        cmd.ExecuteNonQuery();
+        conn.Close();
+
+        txtRaAluno.Text = "";
+        txtNomeAluno.Text = "";
+        txtEmailAluno.Text = "";
+        txtSenhaAluno.Text = "";
+
+        SelecionAba("Alunos");
+        CarregarAlunos();
+        MostrarMensagem("Aluno cadastrado com sucesso.");
+    }
+
+    protected void gvAlunos_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        if (e.CommandName == "ExcluirAluno")
+        {
+            string ra = e.CommandArgument.ToString();
+            string strConexao = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            SqlConnection conn = new SqlConnection(strConexao);
+            conn.Open();
+
+            SqlCommand cmdAg = new SqlCommand("DELETE FROM tb_agendamentos WHERE ra = @ra", conn);
+            cmdAg.Parameters.AddWithValue("@ra", ra);
+            cmdAg.ExecuteNonQuery();
+
+            SqlCommand cmdAluno = new SqlCommand("DELETE FROM tb_alunos WHERE ra = @ra", conn);
+            cmdAluno.Parameters.AddWithValue("@ra", ra);
+            cmdAluno.ExecuteNonQuery();
+
+            conn.Close();
+
+            SelecionAba("Alunos");
+            CarregarAlunos();
+            CarregarTodosAgendamentos();
+            MostrarMensagem("Aluno excluído.");
+        }
+    }
+
+    private void CarregarMonitores()
+    {
+        string strConexao = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        SqlConnection conn = new SqlConnection(strConexao);
+        SqlCommand cmd = new SqlCommand(@"
+            SELECT m.rm, m.nome, m.email, d.nome_disciplina
+            FROM tb_monitores m
+            INNER JOIN tb_disciplinas d ON m.id_disciplina = d.id_disciplina
+            ORDER BY m.nome", conn);
+
+        conn.Open();
+        SqlDataAdapter da = new SqlDataAdapter(cmd);
+        DataTable dt = new DataTable();
+        da.Fill(dt);
+        conn.Close();
+
+        gvMonitores.DataSource = dt;
+        gvMonitores.DataBind();
+    }
+
+    protected void btnCadastrarMonitor_Click(object sender, EventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(txtRmMonitor.Text) ||
+            string.IsNullOrWhiteSpace(txtNomeMonitor.Text) ||
+            string.IsNullOrWhiteSpace(txtEmailMonitor.Text) ||
+            string.IsNullOrWhiteSpace(txtSenhaMonitor.Text) ||
+            ddlDisciplinaMonitor.SelectedValue == "0" ||
+            string.IsNullOrWhiteSpace(txtDiasMonitor.Text) ||
+            string.IsNullOrWhiteSpace(txtHorarioMonitor.Text))
+        {
+            SelecionAba("Monitores");
+            MostrarMensagem("Preencha todos os campos do monitor, disciplina, dias e horário.");
+            return;
+        }
+
+        string strConexao = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        SqlConnection conn = new SqlConnection(strConexao);
+        conn.Open();
+
+        SqlCommand cmdMon = new SqlCommand();
+        cmdMon.Connection = conn;
+        cmdMon.CommandText = "INSERT INTO tb_monitores (rm, nome, email, senha, id_disciplina) VALUES (@rm, @nome, @email, @senha, @id_disciplina)";
+        cmdMon.Parameters.AddWithValue("@rm", txtRmMonitor.Text.Trim());
+        cmdMon.Parameters.AddWithValue("@nome", txtNomeMonitor.Text.Trim());
+        cmdMon.Parameters.AddWithValue("@email", txtEmailMonitor.Text.Trim());
+        cmdMon.Parameters.AddWithValue("@senha", txtSenhaMonitor.Text.Trim());
+        cmdMon.Parameters.AddWithValue("@id_disciplina", ddlDisciplinaMonitor.SelectedValue);
+        cmdMon.ExecuteNonQuery();
+
+        string horario = txtHorarioMonitor.Text.Trim();
+        string[] dias = txtDiasMonitor.Text.Split(',');
+
+        foreach (string diaBruto in dias)
+        {
+            string dia = diaBruto.Trim();
+            if (!string.IsNullOrEmpty(dia))
+            {
+                SqlCommand cmdDisp = new SqlCommand();
+                cmdDisp.Connection = conn;
+                cmdDisp.CommandText = "INSERT INTO tb_disponibilidades (rm, dia_semana, horario) VALUES (@rm, @dia_semana, @horario)";
+                cmdDisp.Parameters.AddWithValue("@rm", txtRmMonitor.Text.Trim());
+                cmdDisp.Parameters.AddWithValue("@dia_semana", dia);
+                cmdDisp.Parameters.AddWithValue("@horario", horario);
+                cmdDisp.ExecuteNonQuery();
+            }
+        }
+
+        conn.Close();
+
+        txtRmMonitor.Text = "";
+        txtNomeMonitor.Text = "";
+        txtEmailMonitor.Text = "";
+        txtSenhaMonitor.Text = "";
+        txtDiasMonitor.Text = "";
+        txtHorarioMonitor.Text = "";
+        ddlDisciplinaMonitor.SelectedIndex = 0;
+
+        SelecionAba("Monitores");
+        CarregarMonitores();
+        MostrarMensagem("Monitor cadastrado com sucesso.");
+    }
+
+    protected void gvMonitores_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        if (e.CommandName == "ExcluirMonitor")
+        {
+            string rm = e.CommandArgument.ToString();
+            string strConexao = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            SqlConnection conn = new SqlConnection(strConexao);
+            conn.Open();
+
+            SqlCommand cmdAg = new SqlCommand("DELETE FROM tb_agendamentos WHERE rm = @rm", conn);
+            cmdAg.Parameters.AddWithValue("@rm", rm);
+            cmdAg.ExecuteNonQuery();
+
+            SqlCommand cmdDisp = new SqlCommand("DELETE FROM tb_disponibilidades WHERE rm = @rm", conn);
+            cmdDisp.Parameters.AddWithValue("@rm", rm);
+            cmdDisp.ExecuteNonQuery();
+
+            SqlCommand cmdMon = new SqlCommand("DELETE FROM tb_monitores WHERE rm = @rm", conn);
+            cmdMon.Parameters.AddWithValue("@rm", rm);
+            cmdMon.ExecuteNonQuery();
+
+            conn.Close();
+
+            SelecionAba("Monitores");
+            CarregarMonitores();
+            CarregarTodosAgendamentos();
+            MostrarMensagem("Monitor excluído.");
+        }
+    }
+
+    private void CarregarTodosAgendamentos()
+    {
+        string strConexao = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        SqlConnection conn = new SqlConnection(strConexao);
+        SqlCommand cmd = new SqlCommand(@"
+            SELECT
+                a.data_agendamento,
+                a.dia_semana,
+                a.horario,
+                a.status,
+                d.nome_disciplina,
+                m.nome AS nome_monitor,
+                al.nome AS nome_aluno
+            FROM tb_agendamentos a
+            INNER JOIN tb_disciplinas d ON a.id_disciplina = d.id_disciplina
+            INNER JOIN tb_monitores m ON a.rm = m.rm
+            INNER JOIN tb_alunos al ON a.ra = al.ra
+            ORDER BY a.data_agendamento DESC, a.id_agendamento DESC", conn);
+
+        conn.Open();
+        SqlDataAdapter da = new SqlDataAdapter(cmd);
+        DataTable dt = new DataTable();
+        da.Fill(dt);
+        conn.Close();
+
+        gvTodosAgendamentos.DataSource = dt;
+        gvTodosAgendamentos.DataBind();
+    }
+
+    private void MostrarMensagem(string texto)
+    {
+        lblMensagem.Visible = true;
+        lblMensagem.Text = texto;
+    }
+}

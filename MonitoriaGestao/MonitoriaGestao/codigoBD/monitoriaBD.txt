@@ -1,0 +1,7 @@
+Instruções:
+- Cada um cria o própria App_data pro banco não dar B.O
+Nome do banco (No App_data): monitoriaGestao_db
+
+Código do banco:
+
+Inserts:
