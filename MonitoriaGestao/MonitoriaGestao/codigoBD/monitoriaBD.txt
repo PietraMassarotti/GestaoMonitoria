@@ -3,5 +3,97 @@ Instruções:
 Nome do banco (No App_data): monitoriaGestao_db
 
 Código do banco:
+CREATE TABLE [dbo].[tb_alunos] (
+    [ra]    INT           NOT NULL,
+    [nome]  VARCHAR (100) NOT NULL,
+    [email] VARCHAR (120) NOT NULL,
+    [senha] VARCHAR (100) NOT NULL,
+    PRIMARY KEY CLUSTERED ([ra] ASC),
+    UNIQUE NONCLUSTERED ([email] ASC)
+);
+
+CREATE TABLE [dbo].[tb_coordenadores] (
+    [id_coordenador] INT           IDENTITY (1, 1) NOT NULL,
+    [nome]           VARCHAR (100) NOT NULL,
+    [email]          VARCHAR (120) NOT NULL,
+    [senha]          VARCHAR (100) NOT NULL,
+    PRIMARY KEY CLUSTERED ([id_coordenador] ASC),
+    UNIQUE NONCLUSTERED ([email] ASC)
+);
+
+CREATE TABLE [dbo].[tb_disciplinas] (
+    [id_disciplina]   INT           IDENTITY (1, 1) NOT NULL,
+    [nome_disciplina] VARCHAR (100) NOT NULL,
+    PRIMARY KEY CLUSTERED ([id_disciplina] ASC)
+);
+
+CREATE TABLE [dbo].[tb_monitores] (
+    [rm]                  INT           NOT NULL,
+    [nome]                VARCHAR (100) NOT NULL,
+    [email]               VARCHAR (120) NOT NULL,
+    [senha]               VARCHAR (100) NOT NULL,
+    [id_disciplina]       INT           NOT NULL,
+    [periodo]             VARCHAR (30)  NULL,
+    [data_inicio_periodo] DATE          NULL,
+    [data_fim_periodo]    DATE          NULL,
+    PRIMARY KEY CLUSTERED ([rm] ASC),
+    UNIQUE NONCLUSTERED ([email] ASC),
+    CONSTRAINT [FK_tb_monitores_tb_disciplinas] FOREIGN KEY ([id_disciplina]) REFERENCES [dbo].[tb_disciplinas] ([id_disciplina])
+);
+
+CREATE TABLE [dbo].[tb_disponibilidades] (
+    [id_disponibilidade] INT          IDENTITY (1, 1) NOT NULL,
+    [rm]                 INT          NOT NULL,
+    [dia_semana]         VARCHAR (20) NOT NULL,
+    [horario]            VARCHAR (20) NOT NULL,
+    PRIMARY KEY CLUSTERED ([id_disponibilidade] ASC),
+    CONSTRAINT [FK_tb_disponibilidades_tb_monitores] FOREIGN KEY ([rm]) REFERENCES [dbo].[tb_monitores] ([rm])
+);
+
+CREATE TABLE [dbo].[tb_agendamentos] (
+    [id_agendamento]   INT          IDENTITY (1, 1) NOT NULL,
+    [ra]               INT          NOT NULL,
+    [rm]               INT          NOT NULL,
+    [id_disciplina]    INT          NOT NULL,
+    [dia_semana]       VARCHAR (20) NOT NULL,
+    [data_agendamento] DATE         NOT NULL,
+    [horario]          VARCHAR (20) NOT NULL,
+    [status]           VARCHAR (20) DEFAULT ('Agendada') NOT NULL,
+    [data_criacao]     DATETIME     DEFAULT (getdate()) NOT NULL,
+    PRIMARY KEY CLUSTERED ([id_agendamento] ASC),
+    CONSTRAINT [FK_tb_agendamentos_tb_alunos] FOREIGN KEY ([ra]) REFERENCES [dbo].[tb_alunos] ([ra]),
+    CONSTRAINT [FK_tb_agendamentos_tb_monitores] FOREIGN KEY ([rm]) REFERENCES [dbo].[tb_monitores] ([rm]),
+    CONSTRAINT [FK_tb_agendamentos_tb_disciplinas] FOREIGN KEY ([id_disciplina]) REFERENCES [dbo].[tb_disciplinas] ([id_disciplina])
+);
 
 Inserts:
+INSERT INTO [dbo].[tb_alunos] ([ra], [nome], [email], [senha]) VALUES
+(2024001, 'Pietra Massarotti',  'pietra@email.com',    'Senha123'),
+(2024002, 'Henry Wilson Duarte Gabriel', 'henry@email.com',  'Senha456'),
+(2024003, 'João Fulano',    'fulano@email.com', 'Senha789');
+
+INSERT INTO [dbo].[tb_coordenadores] ([nome], [email], [senha]) VALUES
+('Eduardo Enari',  'enari@fatec.com',  'Coord123'),
+('Warner',   'warner@fatec.com',   'Coord456');
+
+INSERT INTO [dbo].[tb_disciplinas] ([nome_disciplina]) VALUES
+('Banco de Dados I'),
+('Linguagens de programação'),
+('Desenvolvimento Web I');
+
+INSERT INTO [dbo].[tb_monitores]
+([rm], [nome], [email], [senha], [id_disciplina], [periodo], [data_inicio_periodo], [data_fim_periodo]) VALUES
+(1001, 'Lucas Ryan',   'lucas@email.com',  'Mon123', 1, 'Segundo', '2026-02-01', '2026-06-30'),
+(1002, 'Henrique dos Santos',   'henrique@email.com',  'Mon456', 2, 'Terceiro', '2026-02-01', '2026-06-30'),
+(1003, 'Maria',  'maria@email.com', 'Mon789', 3, 'Primeiro', '2026-08-01', '2026-12-15');
+
+INSERT INTO [dbo].[tb_disponibilidades] ([rm], [dia_semana], [horario]) VALUES
+(1001, 'Segunda-feira', '08:00 - 09:00'),
+(1002, 'Quarta-feira',  '14:00 - 15:00'),
+(1003, 'Sexta-feira',   '19:00 - 20:00');
+
+INSERT INTO [dbo].[tb_agendamentos]
+([ra], [rm], [id_disciplina], [dia_semana], [data_agendamento], [horario]) VALUES
+(2024001, 1001, 1, 'Segunda-feira', '2026-12-07', '08:00 ás 09:00'),
+(2024002, 1002, 2, 'Quarta-feira',  '2026-12-09', '14:00 ás 15:00'),
+(2024003, 1003, 3, 'Sexta-feira',   '2026-12-11', '19:00 ás 20:00');
