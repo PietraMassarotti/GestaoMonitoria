@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|C:\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao|c:\\monitoriagestao\\monitoriagestao\\monitoriagestao\\monitoriagestao\\paginas\\login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|C:\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao|solutionrelative:monitoriagestao\\paginas\\login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+      "AbsoluteMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|C:\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao|c:\\monitoriagestao\\monitoriagestao\\monitoriagestao\\monitoriagestao\\paginas\\painelmonitor.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|C:\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao|solutionrelative:monitoriagestao\\paginas\\painelmonitor.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|C:\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao|c:\\monitoriagestao\\monitoriagestao\\monitoriagestao\\monitoriagestao\\codigobd\\monitoriabd.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|C:\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao|solutionrelative:monitoriagestao\\codigobd\\monitoriabd.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|C:\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao|c:\\monitoriagestao\\monitoriagestao\\monitoriagestao\\monitoriagestao\\paginas\\painelmonitor.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|C:\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao|solutionrelative:monitoriagestao\\paginas\\painelmonitor.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|C:\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao|c:\\monitoriagestao\\monitoriagestao\\monitoriagestao\\monitoriagestao\\paginas\\minhaconta.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|C:\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao|solutionrelative:monitoriagestao\\paginas\\minhaconta.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,38 +22,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "minhaConta.aspx.cs",
+              "DocumentMoniker": "C:\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\paginas\\minhaConta.aspx.cs",
+              "RelativeDocumentMoniker": "MonitoriaGestao\\paginas\\minhaConta.aspx.cs",
+              "ToolTip": "C:\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\paginas\\minhaConta.aspx.cs",
+              "RelativeToolTip": "MonitoriaGestao\\paginas\\minhaConta.aspx.cs",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-25T01:07:02.817Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "monitoriaBD.txt",
-              "DocumentMoniker": "C:\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\codigoBD\\monitoriaBD.txt",
-              "RelativeDocumentMoniker": "MonitoriaGestao\\codigoBD\\monitoriaBD.txt",
-              "ToolTip": "C:\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\codigoBD\\monitoriaBD.txt",
-              "RelativeToolTip": "MonitoriaGestao\\codigoBD\\monitoriaBD.txt",
-              "ViewState": "AgIAADMAAAAAAAAAAAAAAEwAAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2026-11-25T00:18:00.948Z",
-              "IsPinned": true,
+              "Title": "painelMonitor.aspx.cs",
+              "DocumentMoniker": "C:\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\paginas\\painelMonitor.aspx.cs",
+              "RelativeDocumentMoniker": "MonitoriaGestao\\paginas\\painelMonitor.aspx.cs",
+              "ToolTip": "C:\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\paginas\\painelMonitor.aspx.cs",
+              "RelativeToolTip": "MonitoriaGestao\\paginas\\painelMonitor.aspx.cs",
+              "ViewState": "AgIAAFMAAAAAAAAAAADwv2UAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-25T01:05:15.675Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "login.aspx",
-              "DocumentMoniker": "C:\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\paginas\\login.aspx",
-              "RelativeDocumentMoniker": "MonitoriaGestao\\paginas\\login.aspx",
-              "ToolTip": "C:\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\paginas\\login.aspx",
-              "RelativeToolTip": "MonitoriaGestao\\paginas\\login.aspx",
+              "Title": "painelMonitor.aspx",
+              "DocumentMoniker": "C:\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\paginas\\painelMonitor.aspx",
+              "RelativeDocumentMoniker": "MonitoriaGestao\\paginas\\painelMonitor.aspx",
+              "ToolTip": "C:\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\paginas\\painelMonitor.aspx",
+              "RelativeToolTip": "MonitoriaGestao\\paginas\\painelMonitor.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2026-11-25T00:29:26.373Z",
+              "WhenOpened": "2026-11-25T01:03:31.368Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
             }
           ]
         }

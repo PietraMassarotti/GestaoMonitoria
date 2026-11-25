@@ -18,8 +18,9 @@
                 <asp:BoundField DataField="status" HeaderText="Status" />
                 <asp:TemplateField HeaderText="Alterar status">
                     <ItemTemplate>
-                        <asp:Button ID="btnAndamento" runat="server" Text="Em andamento" CommandName="MarcarAndamento" CommandArgument='<%# Eval("id_agendamento") %>' CssClass="btnStatusAndamento" CausesValidation="false" />
-                        <asp:Button ID="btnFinalizada" runat="server" Text="Finalizada" CommandName="MarcarFinalizada" CommandArgument='<%# Eval("id_agendamento") %>' CssClass="btnStatusFinalizada" CausesValidation="false" />
+                        <asp:Button ID="btnAndamento" runat="server" Text="Em andamento" CommandName="MarcarAndamento" CommandArgument='<%# Eval("id_agendamento") %>' CssClass="btnStatusAndamento" CausesValidation="false" Visible = "false"/>
+                        <asp:Button ID="btnFinalizada" runat="server" Text="Finalizada" CommandName="MarcarFinalizada" CommandArgument='<%# Eval("id_agendamento") %>' CssClass="btnStatusFinalizada" CausesValidation="false" Visible = "false"/>
+                        <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CommandName="MarcarCancelar" CommandArgument='<%# Eval("id_agendamento") %>' CssClass="btnStatusFinalizada" CausesValidation="false" Visible = "false"/>
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

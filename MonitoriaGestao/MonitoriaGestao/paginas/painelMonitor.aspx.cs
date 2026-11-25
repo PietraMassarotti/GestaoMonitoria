@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -50,10 +51,31 @@ public partial class painelMonitor : System.Web.UI.Page
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataTable dt = new DataTable();
         da.Fill(dt);
+
         conn.Close();
 
         gvMonitorias.DataSource = dt;
         gvMonitorias.DataBind();
+
+        for (int i = 0; i < gvMonitorias.Rows.Count; i++)
+        {
+            string status = dt.Rows[i]["status"].ToString().Trim();
+
+            Button btnAndamento = (Button)gvMonitorias.Rows[i].FindControl("btnAndamento");
+            Button btnFinalizada = (Button)gvMonitorias.Rows[i].FindControl("btnFinalizada");
+            Button btnCancelar = (Button)gvMonitorias.Rows[i].FindControl("btnCancelar");
+
+            if (status == "Agendada")
+            {
+                btnAndamento.Visible = true;
+                btnCancelar.Visible = true;
+            }
+            else if (status == "Em andamento")
+            {
+                btnFinalizada.Visible = true;
+                btnCancelar.Visible = true;
+            }
+        }
     }
 
     // Atualiza o status para "Em andamento" ou "Finalizada"
@@ -69,6 +91,10 @@ public partial class painelMonitor : System.Web.UI.Page
         else if (e.CommandName == "MarcarFinalizada")
         {
             novoStatus = "Finalizada";
+        }
+        else if (e.CommandName == "MarcarCancelar")
+        {
+            novoStatus = "Cancelada";
         }
         else
         {
