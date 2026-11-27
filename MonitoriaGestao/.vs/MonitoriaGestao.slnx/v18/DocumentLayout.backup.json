@@ -1,26 +1,26 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Henrique\\Downloads\\MonitoriaGestao\\MonitoriaGestao\\",
+  "WorkspaceRootPath": "D:\\Fatec_projects\\Web\\GestaoMonitoria\\MonitoriaGestao\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|C:\\Users\\Henrique\\Downloads\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao|c:\\users\\henrique\\downloads\\monitoriagestao\\monitoriagestao\\monitoriagestao\\painelmonitor.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|C:\\Users\\Henrique\\Downloads\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao|solutionrelative:monitoriagestao\\painelmonitor.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|D:\\Fatec_projects\\Web\\GestaoMonitoria\\MonitoriaGestao\\MonitoriaGestao|d:\\fatec_projects\\web\\gestaomonitoria\\monitoriagestao\\monitoriagestao\\paginas\\login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|D:\\Fatec_projects\\Web\\GestaoMonitoria\\MonitoriaGestao\\MonitoriaGestao|solutionrelative:monitoriagestao\\paginas\\login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|C:\\Users\\Henrique\\Downloads\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao|c:\\users\\henrique\\downloads\\monitoriagestao\\monitoriagestao\\monitoriagestao\\meusagendamentos.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|C:\\Users\\Henrique\\Downloads\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao|solutionrelative:monitoriagestao\\meusagendamentos.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+      "AbsoluteMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|D:\\Fatec_projects\\Web\\GestaoMonitoria\\MonitoriaGestao\\MonitoriaGestao|d:\\fatec_projects\\web\\gestaomonitoria\\monitoriagestao\\monitoriagestao\\css\\index.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|D:\\Fatec_projects\\Web\\GestaoMonitoria\\MonitoriaGestao\\MonitoriaGestao|solutionrelative:monitoriagestao\\css\\index.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|C:\\Users\\Henrique\\Downloads\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao|c:\\users\\henrique\\downloads\\monitoriagestao\\monitoriagestao\\monitoriagestao\\meusagendamentos.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|C:\\Users\\Henrique\\Downloads\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao|solutionrelative:monitoriagestao\\meusagendamentos.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Felipe\\AppData\\Local\\Temp\\~vsw02misby.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|",
+      "UntitledItemName": "SQLQuery1.sql"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|C:\\Users\\Henrique\\Downloads\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao|c:\\users\\henrique\\downloads\\monitoriagestao\\monitoriagestao\\monitoriagestao\\agendar.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|C:\\Users\\Henrique\\Downloads\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao|solutionrelative:monitoriagestao\\agendar.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Felipe\\AppData\\Local\\Temp\\~vsw02misby.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|CodeFrame",
+      "UntitledItemName": "SQLQuery1.sql"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|C:\\Users\\Henrique\\Downloads\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao|c:\\users\\henrique\\downloads\\monitoriagestao\\monitoriagestao\\monitoriagestao\\agendar.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{B58AF932-F293-EF39-DB53-E6A1746525EC}|C:\\Users\\Henrique\\Downloads\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao|solutionrelative:monitoriagestao\\agendar.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Felipe\\AppData\\Local\\Temp\\~vsw02misby.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|ResultFrame",
+      "UntitledItemName": "SQLQuery1.sql"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,72 +30,46 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "painelMonitor.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\Henrique\\Downloads\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\painelMonitor.aspx.cs",
-              "RelativeDocumentMoniker": "MonitoriaGestao\\painelMonitor.aspx.cs",
-              "ToolTip": "C:\\Users\\Henrique\\Downloads\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\painelMonitor.aspx.cs",
-              "RelativeToolTip": "MonitoriaGestao\\painelMonitor.aspx.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-23T14:10:45.22Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "meusAgendamentos.aspx",
-              "DocumentMoniker": "C:\\Users\\Henrique\\Downloads\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\meusAgendamentos.aspx",
-              "RelativeDocumentMoniker": "MonitoriaGestao\\meusAgendamentos.aspx",
-              "ToolTip": "C:\\Users\\Henrique\\Downloads\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\meusAgendamentos.aspx",
-              "RelativeToolTip": "MonitoriaGestao\\meusAgendamentos.aspx",
-              "LogicalView": "7651a702-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2026-11-23T14:07:13Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "agendar.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\Henrique\\Downloads\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\agendar.aspx.cs",
-              "RelativeDocumentMoniker": "MonitoriaGestao\\agendar.aspx.cs",
-              "ToolTip": "C:\\Users\\Henrique\\Downloads\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\agendar.aspx.cs",
-              "RelativeToolTip": "MonitoriaGestao\\agendar.aspx.cs",
-              "ViewState": "AgIAAOcAAAAAAAAAAAAuwAEBAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-23T13:59:14.822Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "agendar.aspx",
-              "DocumentMoniker": "C:\\Users\\Henrique\\Downloads\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\agendar.aspx",
-              "RelativeDocumentMoniker": "MonitoriaGestao\\agendar.aspx",
-              "ToolTip": "C:\\Users\\Henrique\\Downloads\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\agendar.aspx",
-              "RelativeToolTip": "MonitoriaGestao\\agendar.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2026-11-23T13:59:13.46Z",
-              "EditorCaption": ""
+              "Title": "index.css",
+              "DocumentMoniker": "D:\\Fatec_projects\\Web\\GestaoMonitoria\\MonitoriaGestao\\MonitoriaGestao\\css\\index.css",
+              "RelativeDocumentMoniker": "MonitoriaGestao\\css\\index.css",
+              "ToolTip": "D:\\Fatec_projects\\Web\\GestaoMonitoria\\MonitoriaGestao\\MonitoriaGestao\\css\\index.css",
+              "RelativeToolTip": "MonitoriaGestao\\css\\index.css",
+              "ViewState": "AgIAAD0BAAAAAAAAAAAqwFgBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-11-26T22:27:25.542Z",
+              "EditorCaption": "",
+              "OwnerCaption": "%2"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "meusAgendamentos.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\Henrique\\Downloads\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\meusAgendamentos.aspx.cs",
-              "RelativeDocumentMoniker": "MonitoriaGestao\\meusAgendamentos.aspx.cs",
-              "ToolTip": "C:\\Users\\Henrique\\Downloads\\MonitoriaGestao\\MonitoriaGestao\\MonitoriaGestao\\meusAgendamentos.aspx.cs",
-              "RelativeToolTip": "MonitoriaGestao\\meusAgendamentos.aspx.cs",
-              "ViewState": "AgIAAEYBAAAAAAAAAAAAwGEBAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-23T13:50:13.34Z",
-              "EditorCaption": ""
+              "Title": "SQLQuery1.sql ",
+              "DocumentMoniker": "C:\\Users\\Felipe\\AppData\\Local\\Temp\\~vsw02misby.sql",
+              "ToolTip": "SQLQuery1.sql *",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2026-11-26T22:32:18.857Z",
+              "EditorCaption": "",
+              "OwnerCaption": "%2 "
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "login.aspx",
+              "DocumentMoniker": "D:\\Fatec_projects\\Web\\GestaoMonitoria\\MonitoriaGestao\\MonitoriaGestao\\paginas\\login.aspx",
+              "RelativeDocumentMoniker": "MonitoriaGestao\\paginas\\login.aspx",
+              "ToolTip": "D:\\Fatec_projects\\Web\\GestaoMonitoria\\MonitoriaGestao\\MonitoriaGestao\\paginas\\login.aspx",
+              "RelativeToolTip": "MonitoriaGestao\\paginas\\login.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2026-11-26T22:11:47.539Z",
+              "EditorCaption": "",
+              "OwnerCaption": "%2"
             }
           ]
         }

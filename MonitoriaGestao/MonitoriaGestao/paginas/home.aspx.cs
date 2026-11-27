@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 
 public partial class home : System.Web.UI.Page
 {
+    // Carrega o mural apenas no primeiro acesso à página
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -18,6 +19,9 @@ public partial class home : System.Web.UI.Page
         }
     }
 
+    // Abre conexão com o SQL Server, executa um SELECT com INNER JOIN ligando
+    // tb_agendamentos às tabelas de disciplinas, monitores e alunos, preenche um
+    // DataTable via SqlDataAdapter e vincula o resultado ao GridView gvMural.
     private void CarregarMural()
     {
         string strConexao = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;

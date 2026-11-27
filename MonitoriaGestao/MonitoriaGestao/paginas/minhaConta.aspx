@@ -10,23 +10,23 @@
         <div class="formGrid">
             <div class="campoGrupo">
                 <label>Perfil</label>
-                <asp:TextBox ID="txtPerfil" runat="server" CssClass="inputBloqueado" ReadOnly="true"></asp:TextBox>
+                <asp:Label ID="lblPerfil" runat="server" CssClass="dadoConta"></asp:Label>
             </div>
 
             <div class="campoGrupo">
                 <label>
                     <asp:Label ID="lblTipoId" runat="server" Text="Identificador"></asp:Label></label>
-                <asp:TextBox ID="txtIdentificador" runat="server" CssClass="inputBloqueado" ReadOnly="true"></asp:TextBox>
+                <asp:Label ID="lblIdentificador" runat="server" CssClass="dadoConta"></asp:Label>
             </div>
 
             <div class="campoGrupo">
                 <label>Nome</label>
-                <asp:TextBox ID="txtNome" runat="server" CssClass="inputBloqueado" ReadOnly="true"></asp:TextBox>
+                <asp:Label ID="lblNome" runat="server" CssClass="dadoConta"></asp:Label>
             </div>
 
             <div class="campoGrupo">
                 <label>E-mail</label>
-                <asp:TextBox ID="txtEmail" runat="server" CssClass="inputBloqueado" ReadOnly="true"></asp:TextBox>
+                <asp:Label ID="lblEmail" runat="server" CssClass="dadoConta"></asp:Label>
             </div>
         </div>
 
@@ -55,4 +55,3 @@
         <asp:Label ID="lblMensagem" runat="server" CssClass="msgFeedback" Visible="false"></asp:Label>
     </div>
 </asp:Content>
-

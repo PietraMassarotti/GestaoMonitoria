@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 
 public partial class meusAgendamentos : System.Web.UI.Page
 {
+    // Garante que apenas um aluno logado acesse a tela e carrega a tabela
+    // apenas na primeira vez que a página abre.
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["PerfilUsuario"] == null || Session["PerfilUsuario"].ToString() != "Aluno")
@@ -21,6 +23,8 @@ public partial class meusAgendamentos : System.Web.UI.Page
         }
     }
 
+    // Busca os agendamentos do aluno logado unindo com disciplinas e monitores
+    // para exibir nomes legíveis no GridView.
     private void CarregarMeusAgendamentos()
     {
         string strConexao = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
@@ -40,6 +44,8 @@ public partial class meusAgendamentos : System.Web.UI.Page
         gvMeusAgendamentos.DataBind();
     }
 
+    // Identifica qual botão da linha do GridView foi clicado ("Editar" ou "Cancelar")
+    // e pega o id_agendamento guardado no CommandArgument.
     protected void gvMeusAgendamentos_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         int idAgendamento = Convert.ToInt32(e.CommandArgument);
@@ -54,6 +60,8 @@ public partial class meusAgendamentos : System.Web.UI.Page
         }
     }
 
+    // Remove o agendamento do banco (filtrando também pelo RA do aluno logado),
+    // fecha o painel de edição se estiver aberto e atualiza a lista.
     private void ExcluirAgendamento(int idAgendamento)
     {
         string strConexao = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
@@ -72,7 +80,8 @@ public partial class meusAgendamentos : System.Web.UI.Page
         CarregarMeusAgendamentos();
     }
 
-    private void CarregarDisciplinasEdicao(string idDisciplinaSelecionada)
+    // Carrega todas as disciplinas no combo de edição.
+    private void CarregarDisciplinasEdicao()
     {
         string strConexao = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         SqlConnection conn = new SqlConnection(strConexao);
@@ -88,23 +97,15 @@ public partial class meusAgendamentos : System.Web.UI.Page
         conn.Close();
 
         ddlEdicaoDisciplina.Items.Insert(0, new ListItem("Selecione...", "0"));
-
-        if (!string.IsNullOrEmpty(idDisciplinaSelecionada) && ddlEdicaoDisciplina.Items.FindByValue(idDisciplinaSelecionada) != null)
-        {
-            ddlEdicaoDisciplina.SelectedValue = idDisciplinaSelecionada;
-        }
-        else
-        {
-            ddlEdicaoDisciplina.SelectedIndex = 0;
-        }
     }
 
-    private void CarregarMonitoresEdicao(string idDisciplina, string rmSelecionado)
+    // Carrega os monitores da disciplina escolhida no painel de edição.
+    private void CarregarMonitoresEdicao()
     {
         ddlEdicaoMonitor.Items.Clear();
         ddlEdicaoMonitor.Items.Insert(0, new ListItem("Selecione...", "0"));
 
-        if (string.IsNullOrEmpty(idDisciplina) || idDisciplina == "0")
+        if (ddlEdicaoDisciplina.SelectedValue == "0")
         {
             return;
         }
@@ -112,47 +113,45 @@ public partial class meusAgendamentos : System.Web.UI.Page
         string strConexao = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         SqlConnection conn = new SqlConnection(strConexao);
         SqlCommand cmd = new SqlCommand("SELECT rm, nome FROM tb_monitores WHERE id_disciplina = @id_disciplina ORDER BY nome", conn);
-        cmd.Parameters.AddWithValue("@id_disciplina", idDisciplina);
+        cmd.Parameters.AddWithValue("@id_disciplina", ddlEdicaoDisciplina.SelectedValue);
 
         conn.Open();
         SqlDataReader dr = cmd.ExecuteReader();
-        while (dr.Read())
-        {
-            ddlEdicaoMonitor.Items.Add(new ListItem(dr["nome"].ToString(), dr["rm"].ToString()));
-        }
+        ddlEdicaoMonitor.DataSource = dr;
+        ddlEdicaoMonitor.DataTextField = "nome";
+        ddlEdicaoMonitor.DataValueField = "rm";
+        ddlEdicaoMonitor.DataBind();
         dr.Close();
         conn.Close();
 
-        if (!string.IsNullOrEmpty(rmSelecionado) && ddlEdicaoMonitor.Items.FindByValue(rmSelecionado) != null)
-        {
-            ddlEdicaoMonitor.SelectedValue = rmSelecionado;
-        }
+        ddlEdicaoMonitor.Items.Insert(0, new ListItem("Selecione...", "0"));
     }
 
+    // Ao mudar a disciplina na edição, atualiza os monitores e limpa os horários.
     protected void ddlEdicaoDisciplina_SelectedIndexChanged(object sender, EventArgs e)
     {
-        CarregarMonitoresEdicao(ddlEdicaoDisciplina.SelectedValue, null);
-        CarregarHorariosDisponiveisEdicao(null, null, null);
+        CarregarMonitoresEdicao();
+        CarregarHorariosDisponiveisEdicao();
     }
 
+    // Ao mudar o monitor na edição, carrega os horários livres dele na semana.
     protected void ddlEdicaoMonitor_SelectedIndexChanged(object sender, EventArgs e)
     {
-        CarregarHorariosDisponiveisEdicao(null, null, null);
+        CarregarHorariosDisponiveisEdicao();
     }
 
+    // Busca os dados atuais do agendamento escolhido, preenche os combos
+    // e abre o painel de edição na tela.
     private void AbrirEdicao(int idAgendamento)
     {
-        string idDisciplinaAtual = "";
-        string rmAtual = "";
-        string diaAtual = "";
-        DateTime dataAtual = DateTime.MinValue;
-        string horarioAtual = "";
+        string idDisciplinaAtual = "0";
+        string rmAtual = "0";
 
         string strConexao = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         SqlConnection conn = new SqlConnection(strConexao);
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = conn;
-        cmd.CommandText = "SELECT id_agendamento, id_disciplina, rm, dia_semana, data_agendamento, horario FROM tb_agendamentos WHERE id_agendamento = @id AND ra = @ra;";
+        cmd.CommandText = "SELECT id_agendamento, id_disciplina, rm FROM tb_agendamentos WHERE id_agendamento = @id AND ra = @ra;";
         cmd.Parameters.AddWithValue("@id", idAgendamento);
         cmd.Parameters.AddWithValue("@ra", Session["RA"].ToString());
 
@@ -163,29 +162,28 @@ public partial class meusAgendamentos : System.Web.UI.Page
             hfIdAgendamento.Value = dr["id_agendamento"].ToString();
             idDisciplinaAtual = dr["id_disciplina"].ToString();
             rmAtual = dr["rm"].ToString();
-            diaAtual = dr["dia_semana"].ToString();
-            dataAtual = Convert.ToDateTime(dr["data_agendamento"]);
-            horarioAtual = dr["horario"].ToString();
         }
         dr.Close();
         conn.Close();
 
-        if (string.IsNullOrEmpty(hfIdAgendamento.Value))
+        CarregarDisciplinasEdicao();
+        if (ddlEdicaoDisciplina.Items.FindByValue(idDisciplinaAtual) != null)
         {
-            return;
+            ddlEdicaoDisciplina.SelectedValue = idDisciplinaAtual;
         }
 
-        CarregarDisciplinasEdicao(idDisciplinaAtual);
-        CarregarMonitoresEdicao(ddlEdicaoDisciplina.SelectedValue, rmAtual);
+        CarregarMonitoresEdicao();
+        if (ddlEdicaoMonitor.Items.FindByValue(rmAtual) != null)
+        {
+            ddlEdicaoMonitor.SelectedValue = rmAtual;
+        }
 
+        CarregarHorariosDisponiveisEdicao();
         pnlEdicao.Visible = true;
         lblMensagem.Visible = false;
-
-        string valorAtual = diaAtual + "|" + dataAtual.ToString("yyyy-MM-dd") + "|" + horarioAtual;
-        CarregarHorariosDisponiveisEdicao(diaAtual, dataAtual, valorAtual);
     }
 
-    // Retorna o deslocamento de Segunda-feira (0) até Domingo (6)
+    // Converte o nome do dia da semana em deslocamento de 0 (Segunda) a 6 (Domingo).
     private int ObterIndiceDiaSemana(string diaSemana)
     {
         switch (diaSemana.Trim().ToLower())
@@ -209,7 +207,7 @@ public partial class meusAgendamentos : System.Web.UI.Page
         }
     }
 
-    // Calcula a data exata do dia da semana dentro da semana atual (começando na segunda-feira)
+    // Calcula a data exata do dia da semana na semana de referência (começando na segunda).
     private DateTime ObterDataNaSemanaAtual(string diaSemana)
     {
         DateTime hoje = DateTime.Today;
@@ -223,38 +221,21 @@ public partial class meusAgendamentos : System.Web.UI.Page
         return segundaDaSemana.AddDays(offsetDia);
     }
 
-    // Lista os dias/datas/horários da semana do monitor que ainda não foram ocupados por outro agendamento
-    private void CarregarHorariosDisponiveisEdicao(string diaAtual, DateTime? dataAtual, string valorAtualParaManter)
+    // Lista os dias, datas e horários da semana do monitor que não estão ocupados
+    // por outros agendamentos (ignorando o próprio agendamento que está sendo editado).
+    private void CarregarHorariosDisponiveisEdicao()
     {
         ddlNovaDisponibilidade.Items.Clear();
+        ddlNovaDisponibilidade.Items.Insert(0, new ListItem("Selecione...", "0"));
 
         if (ddlEdicaoMonitor.SelectedValue == "0")
         {
-            ddlNovaDisponibilidade.Items.Insert(0, new ListItem("Selecione...", "0"));
             return;
         }
 
         string strConexao = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         SqlConnection conn = new SqlConnection(strConexao);
         conn.Open();
-
-        DateTime? dataInicioPeriodo = null;
-        DateTime? dataFimPeriodo = null;
-
-        SqlCommand cmdPeriodo = new SqlCommand(
-            "SELECT data_inicio_periodo, data_fim_periodo FROM tb_monitores WHERE rm = @rm", conn);
-        cmdPeriodo.Parameters.AddWithValue("@rm", ddlEdicaoMonitor.SelectedValue);
-
-        SqlDataReader drPeriodo = cmdPeriodo.ExecuteReader();
-        if (drPeriodo.Read())
-        {
-            if (drPeriodo["data_inicio_periodo"] != DBNull.Value)
-                dataInicioPeriodo = Convert.ToDateTime(drPeriodo["data_inicio_periodo"]).Date;
-
-            if (drPeriodo["data_fim_periodo"] != DBNull.Value)
-                dataFimPeriodo = Convert.ToDateTime(drPeriodo["data_fim_periodo"]).Date;
-        }
-        drPeriodo.Close();
 
         SqlCommand cmdDisp = new SqlCommand("SELECT dia_semana, horario FROM tb_disponibilidades WHERE rm = @rm ORDER BY id_disponibilidade", conn);
         cmdDisp.Parameters.AddWithValue("@rm", ddlEdicaoMonitor.SelectedValue);
@@ -267,22 +248,11 @@ public partial class meusAgendamentos : System.Web.UI.Page
         }
         dr.Close();
 
-        string idAtualParam = string.IsNullOrEmpty(hfIdAgendamento.Value) ? "0" : hfIdAgendamento.Value;
-
         foreach (string[] item in listaDisp)
         {
             string diaSemana = item[0];
             string horario = item[1];
             DateTime dataCalculada = ObterDataNaSemanaAtual(diaSemana).Date;
-
-            bool dentroDoPeriodo = true;
-            if (dataInicioPeriodo.HasValue && dataCalculada < dataInicioPeriodo.Value)
-                dentroDoPeriodo = false;
-            if (dataFimPeriodo.HasValue && dataCalculada > dataFimPeriodo.Value)
-                dentroDoPeriodo = false;
-
-            if (!dentroDoPeriodo)
-                continue;
 
             SqlCommand cmdOcupado = new SqlCommand();
             cmdOcupado.Connection = conn;
@@ -290,7 +260,7 @@ public partial class meusAgendamentos : System.Web.UI.Page
             cmdOcupado.Parameters.AddWithValue("@rm", ddlEdicaoMonitor.SelectedValue);
             cmdOcupado.Parameters.AddWithValue("@data_agendamento", dataCalculada);
             cmdOcupado.Parameters.AddWithValue("@horario", horario);
-            cmdOcupado.Parameters.AddWithValue("@id_atual", idAtualParam);
+            cmdOcupado.Parameters.AddWithValue("@id_atual", hfIdAgendamento.Value);
 
             int jaAgendado = (int)cmdOcupado.ExecuteScalar();
             if (jaAgendado == 0)
@@ -301,31 +271,11 @@ public partial class meusAgendamentos : System.Web.UI.Page
             }
         }
 
-        if (!string.IsNullOrEmpty(valorAtualParaManter) &&
-            !string.IsNullOrEmpty(diaAtual) &&
-            dataAtual.HasValue &&
-            dataAtual.Value != DateTime.MinValue &&
-            ddlNovaDisponibilidade.Items.FindByValue(valorAtualParaManter) == null)
-        {
-            string[] partesAtual = valorAtualParaManter.Split('|');
-            if (partesAtual.Length == 3)
-            {
-                string textoAtual = diaAtual + " - " + dataAtual.Value.ToString("dd/MM/yyyy") + " - " + partesAtual[2];
-                ddlNovaDisponibilidade.Items.Insert(0, new ListItem(textoAtual, valorAtualParaManter));
-            }
-        }
-
         conn.Close();
-
-        ddlNovaDisponibilidade.Items.Insert(0, new ListItem("Selecione...", "0"));
-
-        if (!string.IsNullOrEmpty(valorAtualParaManter) && ddlNovaDisponibilidade.Items.FindByValue(valorAtualParaManter) != null)
-        {
-            ddlNovaDisponibilidade.SelectedValue = valorAtualParaManter;
-        }
     }
 
-    // Atualiza disciplina, monitor, dia, data e horário do agendamento no banco
+    // Valida os campos escolhidos, confere se ninguém pegou o horário nesse meio tempo
+    // e atualiza o agendamento em tb_agendamentos.
     protected void btnSalvarEdicao_Click(object sender, EventArgs e)
     {
         if (ddlEdicaoDisciplina.SelectedValue == "0" ||
@@ -348,9 +298,9 @@ public partial class meusAgendamentos : System.Web.UI.Page
 
         SqlCommand cmdVerifica = new SqlCommand();
         cmdVerifica.Connection = conn;
-        cmdVerifica.CommandText = "SELECT COUNT(*) FROM tb_agendamentos WHERE rm = @rm AND data_agendamento = @data AND horario = @horario AND id_agendamento <> @id";
+        cmdVerifica.CommandText = "SELECT COUNT(*) FROM tb_agendamentos WHERE rm = @rm AND data_agendamento = @data_agendamento AND horario = @horario AND id_agendamento <> @id";
         cmdVerifica.Parameters.AddWithValue("@rm", ddlEdicaoMonitor.SelectedValue);
-        cmdVerifica.Parameters.AddWithValue("@data", novaData.Date);
+        cmdVerifica.Parameters.AddWithValue("@data_agendamento", novaData.Date);
         cmdVerifica.Parameters.AddWithValue("@horario", novoHorario);
         cmdVerifica.Parameters.AddWithValue("@id", hfIdAgendamento.Value);
 
@@ -360,17 +310,17 @@ public partial class meusAgendamentos : System.Web.UI.Page
             conn.Close();
             lblMensagem.Visible = true;
             lblMensagem.Text = "Esse horário já está ocupado. Escolha outro.";
-            CarregarHorariosDisponiveisEdicao(null, null, null);
+            CarregarHorariosDisponiveisEdicao();
             return;
         }
 
         SqlCommand cmdUpdate = new SqlCommand();
         cmdUpdate.Connection = conn;
-        cmdUpdate.CommandText = "UPDATE tb_agendamentos SET id_disciplina = @id_disciplina, rm = @rm, dia_semana = @dia, data_agendamento = @data, horario = @horario WHERE id_agendamento = @id AND ra = @ra";
+        cmdUpdate.CommandText = "UPDATE tb_agendamentos SET id_disciplina = @id_disciplina, rm = @rm, dia_semana = @dia, data_agendamento = @data_agendamento, horario = @horario WHERE id_agendamento = @id AND ra = @ra";
         cmdUpdate.Parameters.AddWithValue("@id_disciplina", ddlEdicaoDisciplina.SelectedValue);
         cmdUpdate.Parameters.AddWithValue("@rm", ddlEdicaoMonitor.SelectedValue);
         cmdUpdate.Parameters.AddWithValue("@dia", novoDia);
-        cmdUpdate.Parameters.AddWithValue("@data", novaData.Date);
+        cmdUpdate.Parameters.AddWithValue("@data_agendamento", novaData.Date);
         cmdUpdate.Parameters.AddWithValue("@horario", novoHorario);
         cmdUpdate.Parameters.AddWithValue("@id", hfIdAgendamento.Value);
         cmdUpdate.Parameters.AddWithValue("@ra", Session["RA"].ToString());
@@ -383,6 +333,7 @@ public partial class meusAgendamentos : System.Web.UI.Page
         CarregarMeusAgendamentos();
     }
 
+    // Esconde o painel de edição sem salvar alterações.
     protected void btnCancelarEdicao_Click(object sender, EventArgs e)
     {
         pnlEdicao.Visible = false;

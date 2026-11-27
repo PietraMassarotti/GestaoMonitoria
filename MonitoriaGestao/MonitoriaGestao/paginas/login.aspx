@@ -8,6 +8,17 @@
 
         <div class="formLogin">
             <div class="campoLogin">
+                <label for="ddlPerfil">Entrar como</label>
+                <asp:DropDownList ID="ddlPerfil" runat="server" CssClass="escolhaUsuario">
+                    <asp:ListItem Text="Selecione..." Value="0"></asp:ListItem>
+                    <asp:ListItem Text="Aluno" Value="Aluno"></asp:ListItem>
+                    <asp:ListItem Text="Monitor" Value="Monitor"></asp:ListItem>
+                    <asp:ListItem Text="Coordenador" Value="Coordenador"></asp:ListItem>
+                </asp:DropDownList>
+                
+            </div>
+
+            <div class="campoLogin">
                 <label for="txtEmail">E-mail</label>
                 <asp:TextBox ID="txtEmail" runat="server" CssClass="inputLogin" TextMode="Email"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" ErrorMessage="Informe o e-mail." CssClass="azul" Display="Dynamic"></asp:RequiredFieldValidator>
@@ -27,4 +38,3 @@
         </div>
     </div>
 </asp:Content>
-

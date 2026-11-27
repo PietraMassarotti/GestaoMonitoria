@@ -7,6 +7,10 @@ using System.Web.UI.WebControls;
 
 public partial class confirmar : System.Web.UI.Page
 {
+    // Na primeira carga da página (!IsPostBack), lê nome do aluno e data/horário
+    // gravados na Session pela tela de agendamento. Se faltarem esses dados
+    // (por exemplo, acesso direto pela URL sem agendar antes), redireciona de volta
+    // para agendar.aspx; caso contrário, monta a mensagem em lblConfirmacao.
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

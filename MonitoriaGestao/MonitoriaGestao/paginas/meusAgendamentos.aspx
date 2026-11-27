@@ -23,10 +23,19 @@
             </Columns>
         </asp:GridView>
 
+        <!-- asp:Panel funciona como uma caixa/div controlada no C# (.aspx.cs).
+             Começa com Visible="false" para não ocupar espaço na tela enquanto o aluno só
+             está vendo a tabela; quando ele clica em "Editar", o C# muda pnlEdicao.Visible = true
+             e exibe todo esse bloco de edição de uma só vez. -->
         <asp:Panel ID="pnlEdicao" runat="server" Visible="false" CssClass="painelEdicao">
             <h2 class="subtituloSecao">Alterar agendamento</h2>
+
+            <!-- HiddenField guarda o id_agendamento na página sem aparecer visualmente na tela,
+                 para o C# saber qual registro atualizar ou ignorar ao checar conflito de horário. -->
             <asp:HiddenField ID="hfIdAgendamento" runat="server" />
 
+            <!-- Combos encadeados (Disciplina -> Monitor -> Dia/data/horário disponível)
+                 que atualizam em tempo real via AutoPostBack="true" ao trocar a seleção. -->
             <div class="formGrid">
                 <div class="campoGrupo">
                     <label for="ddlEdicaoDisciplina">Disciplina</label>
@@ -44,6 +53,8 @@
                 </div>
             </div>
 
+            <!-- Botões de ação do painel: CausesValidation="false" evita que validações travem
+                 o clique, e "Fechar" apenas esconde o Panel novamente no C#. -->
             <div class="areaBotao">
                 <asp:Button ID="btnSalvarEdicao" runat="server" Text="Salvar alteração" CssClass="btnPrimario" CausesValidation="false" OnClick="btnSalvarEdicao_Click" />
                 <asp:Button ID="btnCancelarEdicao" runat="server" Text="Fechar" CssClass="btnExcluir" CausesValidation="false" OnClick="btnCancelarEdicao_Click" />

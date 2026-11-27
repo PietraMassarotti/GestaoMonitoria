@@ -6,9 +6,10 @@ using System.Web.UI.WebControls;
 
 public partial class agendar : System.Web.UI.Page
 {
+    // Bloqueia acesso se não houver aluno autenticado na Session e carrega
+    // as disciplinas iniciais apenas na primeira carga da página (!IsPostBack).
     protected void Page_Load(object sender, EventArgs e)
     {
-        // Garante que apenas aluno logado acesse a tela de agendamento
         if (Session["PerfilUsuario"] == null || Session["PerfilUsuario"].ToString() != "Aluno")
         {
             Response.Redirect("~/paginas/login.aspx");
@@ -23,19 +24,21 @@ public partial class agendar : System.Web.UI.Page
         }
     }
 
+    // Limpa os itens do DropDownList de monitores e recoloca a opção padrão "0".
     private void ResetarMonitores()
     {
         ddlMonitor.Items.Clear();
         ddlMonitor.Items.Insert(0, new ListItem("Selecione...", "0"));
     }
 
+    // Limpa os itens do DropDownList de disponibilidades e recoloca a opção padrão "0".
     private void ResetarDisponibilidades()
     {
         ddlDisponibilidade.Items.Clear();
         ddlDisponibilidade.Items.Insert(0, new ListItem("Selecione...", "0"));
     }
 
-    // Carrega todas as disciplinas cadastradas
+    // Busca todas as disciplinas em tb_disciplinas e preenche ddlDisciplina.
     private void CarregarDisciplinas()
     {
         string strConexao = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
@@ -54,7 +57,8 @@ public partial class agendar : System.Web.UI.Page
         ddlDisciplina.Items.Insert(0, new ListItem("Selecione...", "0"));
     }
 
-    // Filtra monitores vinculados à disciplina escolhida
+    // Ao trocar a disciplina, reseta monitor e horários e carrega apenas os monitores
+    // vinculados à disciplina selecionada.
     protected void ddlDisciplina_SelectedIndexChanged(object sender, EventArgs e)
     {
         ResetarMonitores();
@@ -82,12 +86,14 @@ public partial class agendar : System.Web.UI.Page
         ddlMonitor.Items.Insert(0, new ListItem("Selecione...", "0"));
     }
 
+    // Ao trocar o monitor, atualiza a lista de dias, datas e horários livres da semana.
     protected void ddlMonitor_SelectedIndexChanged(object sender, EventArgs e)
     {
         CarregarHorariosDaSemana();
     }
 
-    // Retorna o deslocamento de Segunda-feira (0) até Domingo (6)
+    // Converte o nome do dia da semana em um deslocamento de 0 (Segunda) até 6 (Domingo)
+    // para somar à segunda-feira de referência.
     private int ObterIndiceDiaSemana(string diaSemana)
     {
         switch (diaSemana.Trim().ToLower())
@@ -111,11 +117,12 @@ public partial class agendar : System.Web.UI.Page
         }
     }
 
-    // Calcula a data exata do dia da semana dentro da semana atual (começando na segunda-feira)
+    // Calcula a data exata do dia da semana na semana de referência (começando na segunda-feira).
+    // Como DayOfWeek.Sunday é 0 no .NET, se hoje for domingo o deslocamento -1 faz
+    // segundaDaSemana apontar para a segunda-feira seguinte (início da próxima semana).
     private DateTime ObterDataNaSemanaAtual(string diaSemana)
     {
         DateTime hoje = DateTime.Today;
-        // Se hoje for domingo (0), a semana já é a que começa amanhã (segunda-feira)
         int diasDesdeSegunda = (hoje.DayOfWeek == DayOfWeek.Sunday)
             ? -1
             : ((int)hoje.DayOfWeek - (int)DayOfWeek.Monday);
@@ -126,7 +133,9 @@ public partial class agendar : System.Web.UI.Page
         return segundaDaSemana.AddDays(offsetDia);
     }
 
-    // Lista os dias/datas/horários da semana inteira do monitor que ainda não foram ocupados
+    // Consulta as disponibilidades fixas do monitor em tb_disponibilidades, calcula a data
+    // correspondente na semana e exclui horários que já possuem registro em tb_agendamentos
+    // para o mesmo monitor e data. Cada item guarda "dia|yyyy-MM-dd|horario" no Value.
     private void CarregarHorariosDaSemana()
     {
         ResetarDisponibilidades();
@@ -140,7 +149,6 @@ public partial class agendar : System.Web.UI.Page
         SqlConnection conn = new SqlConnection(strConexao);
         conn.Open();
 
-        // 1. Busca todas as disponibilidades fixas do monitor
         SqlCommand cmdDisp = new SqlCommand("SELECT dia_semana, horario FROM tb_disponibilidades WHERE rm = @rm ORDER BY id_disponibilidade", conn);
         cmdDisp.Parameters.AddWithValue("@rm", ddlMonitor.SelectedValue);
 
@@ -152,7 +160,6 @@ public partial class agendar : System.Web.UI.Page
         }
         dr.Close();
 
-        // 2. Para cada disponibilidade, calcula a data na semana atual e verifica se está livre
         foreach (string[] item in listaDisp)
         {
             string diaSemana = item[0];
@@ -193,13 +200,34 @@ public partial class agendar : System.Web.UI.Page
         }
     }
 
-    // Salva o agendamento no banco, guarda nome e data na Session e vai para confirmação
+    // Valida as escolhas em sequência, separa os dados embutidos no Value do DropDownList,
+    // faz uma última conferência no banco para evitar condição de corrida caso outro aluno
+    // tenha reservado no intervalo, grava em tb_agendamentos, salva o resumo na Session e
+    // redireciona para a tela de confirmação.
     protected void btnAgendar_Click(object sender, EventArgs e)
     {
-        /*if (!Page.IsValid)
+        lblMensagem.Visible = false;
+
+        if (ddlDisciplina.SelectedValue == "0")
         {
+            lblMensagem.Visible = true;
+            lblMensagem.Text = "Selecione uma disciplina.";
             return;
-        }*/
+        }
+
+        if (ddlMonitor.SelectedValue == "0")
+        {
+            lblMensagem.Visible = true;
+            lblMensagem.Text = "Selecione um monitor.";
+            return;
+        }
+
+        if (ddlDisponibilidade.SelectedValue == "0")
+        {
+            lblMensagem.Visible = true;
+            lblMensagem.Text = "Escolha um horário disponível.";
+            return;
+        }
 
         string[] partes = ddlDisponibilidade.SelectedValue.Split('|');
         string diaSemana = partes[0];
@@ -210,7 +238,6 @@ public partial class agendar : System.Web.UI.Page
         SqlConnection conn = new SqlConnection(strConexao);
         conn.Open();
 
-        // Checagem final para evitar conflito caso o horário tenha sido ocupado
         SqlCommand cmdVerifica = new SqlCommand();
         cmdVerifica.Connection = conn;
         cmdVerifica.CommandText = @"
@@ -231,7 +258,6 @@ public partial class agendar : System.Web.UI.Page
             return;
         }
 
-        // Insere o novo agendamento
         SqlCommand cmdInsert = new SqlCommand();
         cmdInsert.Connection = conn;
         cmdInsert.CommandText = @"
@@ -246,7 +272,6 @@ public partial class agendar : System.Web.UI.Page
         cmdInsert.ExecuteNonQuery();
         conn.Close();
 
-        // Salva Nome do Aluno e Data/Horário selecionados na Session antes do redirecionamento
         string nomeAluno = Session["NomeUsuario"].ToString();
         string dataFormatada = dataSelecionada.ToString("dd/MM/yyyy") + " (" + diaSemana + " - " + horario + ")";
 
@@ -255,5 +280,4 @@ public partial class agendar : System.Web.UI.Page
 
         Response.Redirect("~/paginas/confirmacao.aspx");
     }
-
 }
